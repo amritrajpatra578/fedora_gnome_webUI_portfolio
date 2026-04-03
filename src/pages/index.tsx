@@ -1,13 +1,37 @@
-import Demo from "@/components/Demo";
-import { Button, HStack } from "@chakra-ui/react";
-import { Geist, Geist_Mono } from "next/font/google";
+import Dock from "@/components/Docks";
+import SystemMenu from "@/components/SystemMenu";
+import { Box, useDisclosure } from "@chakra-ui/react";
 
 export default function Home() {
+  const systemMenu = useDisclosure();
+
   return (
-    <HStack>
-      <Demo></Demo>
-      <Button>Click me</Button>
-      <Button>Click me</Button>
-    </HStack>
+    <Box position="relative" minH="100vh" overflow="hidden">
+      {/* Wallpaper */}
+      <Box
+        position="absolute"
+        inset="0"
+        bgImage="url('/bg.jpg')"
+        bgSize="cover"
+        backgroundPosition="center"
+        transition="transform 0.4s ease"
+      />
+
+      {/* Dim Layer */}
+      <Box
+        position="absolute"
+        inset="0"
+        bg="black"
+        opacity={systemMenu.open ? 0.55 : 0.25}
+        transition="opacity 0.3s ease"
+      />
+
+      {/* UI Layer */}
+      <Box position="relative" zIndex={10}>
+        <SystemMenu isOpen={systemMenu.open} onClose={systemMenu.onClose} />
+
+        <Dock />
+      </Box>
+    </Box>
   );
 }
