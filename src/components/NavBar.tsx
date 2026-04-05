@@ -1,20 +1,19 @@
-import { Box, Flex, Text, HStack } from "@chakra-ui/react";
+import { Box, Flex, HStack, Text } from "@chakra-ui/react";
+import { Fragment, FunctionComponent, useEffect, useState } from "react";
 import {
-  FiWifi,
-  FiVolume2,
-  FiBluetooth,
   FiBatteryCharging,
+  FiBluetooth,
+  FiVolume2,
+  FiWifi,
 } from "react-icons/fi";
-import { useState, useEffect } from "react";
 import ClockMenu from "./ClockMenu";
 import SystemMenu from "./SystemMenu";
 
-export default function Navbar() {
+const Navbar: FunctionComponent = () => {
   const [time, setTime] = useState("");
   const [clockOpen, setClockOpen] = useState(false);
   const [systemOpen, setSystemOpen] = useState(false);
 
-  // ⏰ Live Time
   useEffect(() => {
     const update = () => {
       const now = new Date();
@@ -34,15 +33,13 @@ export default function Navbar() {
     return () => clearInterval(interval);
   }, []);
 
-  // 🔴 Close all menus
   const closeAll = () => {
     setClockOpen(false);
     setSystemOpen(false);
   };
 
   return (
-    <>
-      {/* 🔲 Overlay for outside click */}
+    <Fragment>
       {(clockOpen || systemOpen) && (
         <Box
           position="fixed"
@@ -55,7 +52,6 @@ export default function Navbar() {
         />
       )}
 
-      {/* 🔝 Navbar */}
       <Box
         position="fixed"
         top="0"
@@ -69,7 +65,6 @@ export default function Navbar() {
         zIndex={1000}
       >
         <Flex h="100%" align="center" justify="space-between">
-          {/* 🔹 LEFT */}
           <Text
             color="white"
             fontSize="sm"
@@ -79,7 +74,6 @@ export default function Navbar() {
             Amritraj Patra
           </Text>
 
-          {/* 🔹 CENTER (Clock) */}
           <Box position="relative">
             <Text
               color="white"
@@ -97,7 +91,6 @@ export default function Navbar() {
             <ClockMenu isOpen={clockOpen} />
           </Box>
 
-          {/* 🔹 RIGHT (System Icons) */}
           <Box position="relative">
             <HStack
               _hover={{ opacity: 0.7 }}
@@ -122,6 +115,8 @@ export default function Navbar() {
           </Box>
         </Flex>
       </Box>
-    </>
+    </Fragment>
   );
-}
+};
+
+export default Navbar;

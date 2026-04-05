@@ -1,32 +1,31 @@
 import {
   Box,
-  VStack,
-  Text,
   HStack,
   IconButton,
   SimpleGrid,
+  Text,
+  VStack,
 } from "@chakra-ui/react";
+import { FunctionComponent, useState } from "react";
 import {
-  FiPlay,
-  FiPause,
-  FiSkipBack,
-  FiSkipForward,
   FiChevronLeft,
   FiChevronRight,
+  FiPause,
+  FiPlay,
+  FiSkipBack,
+  FiSkipForward,
 } from "react-icons/fi";
-import { useState } from "react";
 
-interface Props {
+export interface ClockMenuProps {
   isOpen: boolean;
 }
 
-export default function ClockMenu({ isOpen }: Props) {
+const ClockMenu: FunctionComponent<ClockMenuProps> = ({ isOpen }) => {
   const [playing, setPlaying] = useState(false);
   const [date, setDate] = useState(new Date());
 
   const today = new Date();
 
-  // 📅 helpers
   const year = date.getFullYear();
   const month = date.getMonth();
 
@@ -35,12 +34,10 @@ export default function ClockMenu({ isOpen }: Props) {
 
   const days = [];
 
-  // empty slots
   for (let i = 0; i < firstDay; i++) {
     days.push(null);
   }
 
-  // actual days
   for (let i = 1; i <= daysInMonth; i++) {
     days.push(i);
   }
@@ -68,9 +65,7 @@ export default function ClockMenu({ isOpen }: Props) {
       pointerEvents={isOpen ? "auto" : "none"}
     >
       <VStack gap={4} align="stretch">
-        {/* 📅 Calendar */}
         <Box>
-          {/* Header */}
           <HStack justify="space-between" mb={2}>
             <IconButton
               aria-label="prev"
@@ -95,7 +90,6 @@ export default function ClockMenu({ isOpen }: Props) {
             </IconButton>
           </HStack>
 
-          {/* Week days */}
           <SimpleGrid columns={7} gap={1} mb={1}>
             {["S", "M", "T", "W", "T", "F", "S"].map((d) => (
               <Text key={d} fontSize="xs" textAlign="center" opacity={0.6}>
@@ -104,7 +98,6 @@ export default function ClockMenu({ isOpen }: Props) {
             ))}
           </SimpleGrid>
 
-          {/* Dates */}
           <SimpleGrid columns={7} gap={1}>
             {days.map((day, i) => {
               const isToday =
@@ -134,7 +127,6 @@ export default function ClockMenu({ isOpen }: Props) {
           </SimpleGrid>
         </Box>
 
-        {/* 🎵 Music Player */}
         <Box>
           <Text fontSize="sm" mb={2} opacity={0.7}>
             Now Playing
@@ -166,4 +158,6 @@ export default function ClockMenu({ isOpen }: Props) {
       </VStack>
     </Box>
   );
-}
+};
+
+export default ClockMenu;

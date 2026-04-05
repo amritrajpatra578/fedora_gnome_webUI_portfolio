@@ -7,7 +7,6 @@ export default function Home() {
 
   return (
     <Box position="relative" minH="100vh" overflow="hidden">
-      {/* Wallpaper */}
       <Box
         position="absolute"
         inset="0"
@@ -17,7 +16,6 @@ export default function Home() {
         transition="transform 0.4s ease"
       />
 
-      {/* Dim Layer */}
       <Box
         position="absolute"
         inset="0"
@@ -26,7 +24,6 @@ export default function Home() {
         transition="opacity 0.3s ease"
       />
 
-      {/* UI Layer */}
       <Box position="relative" zIndex={10}>
         <SystemMenu isOpen={systemMenu.open} onClose={systemMenu.onClose} />
 

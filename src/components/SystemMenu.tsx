@@ -8,7 +8,7 @@ import {
   Slider,
   Text,
 } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { FunctionComponent, useEffect } from "react";
 import {
   FiAirplay,
   FiBatteryCharging,
@@ -21,15 +21,17 @@ import {
   FiSun,
   FiWifi,
 } from "react-icons/fi";
-import { QuickTile } from "./QuickTile";
+import QuickTile from "./QuickTile";
 
-interface Props {
+export interface SystemMenuProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export default function SystemMenu({ isOpen, onClose }: Props) {
-  // ESC close
+const SystemMenu: FunctionComponent<SystemMenuProps> = ({
+  isOpen,
+  onClose,
+}) => {
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -66,7 +68,6 @@ export default function SystemMenu({ isOpen, onClose }: Props) {
         }
         transition="all 0.18s cubic-bezier(0.25, 0.8, 0.25, 1)"
       >
-        {/* 🔹 Top Row */}
         <Flex justify="space-between" align="center" mb={4}>
           <Box bg="whiteAlpha.200" px={3} py={1} rounded="full">
             <Box as={FiBatteryCharging} boxSize="18px" /> 100%
@@ -85,7 +86,6 @@ export default function SystemMenu({ isOpen, onClose }: Props) {
           </HStack>
         </Flex>
 
-        {/* 🔊 Volume */}
         <Text fontSize="xs" mb={1}>
           Volume
         </Text>
@@ -98,7 +98,6 @@ export default function SystemMenu({ isOpen, onClose }: Props) {
           </Slider.Control>
         </Slider.Root>
 
-        {/* 💡 Brightness */}
         <Text fontSize="xs" mt={3} mb={1}>
           Brightness
         </Text>
@@ -111,7 +110,6 @@ export default function SystemMenu({ isOpen, onClose }: Props) {
           </Slider.Control>
         </Slider.Root>
 
-        {/* 🔘 Quick Toggles */}
         <Grid templateColumns="repeat(2, 1fr)" gap={3} mt={4}>
           <GridItem>
             <QuickTile icon={<FiWifi />} label="Wi-Fi" active />
@@ -129,7 +127,6 @@ export default function SystemMenu({ isOpen, onClose }: Props) {
             <QuickTile icon={<FiSun />} label="Dark Style" active />
           </GridItem>
 
-          {/* 🔥 NEW (GNOME-like extras) */}
           <GridItem>
             <QuickTile icon={<FiAirplay />} label="Airplane" />
           </GridItem>
@@ -141,4 +138,6 @@ export default function SystemMenu({ isOpen, onClose }: Props) {
       </Box>
     </Box>
   );
-}
+};
+
+export default SystemMenu;

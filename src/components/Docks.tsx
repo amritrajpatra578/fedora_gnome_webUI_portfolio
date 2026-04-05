@@ -1,17 +1,20 @@
 import { Box, HStack } from "@chakra-ui/react";
+import { FunctionComponent } from "react";
+import { BsLinkedin } from "react-icons/bs";
 import {
-  FiGithub,
-  FiFileText,
-  FiFile,
   FiCalendar,
-  FiMusic,
-  FiMail,
+  FiFile,
+  FiFileText,
+  FiGithub,
   FiLink,
+  FiMail,
+  FiMusic,
   FiTerminal,
 } from "react-icons/fi";
 
 const apps = [
   { icon: FiGithub, label: "GitHub" },
+  { icon: BsLinkedin, label: "Linkedin" },
   { icon: FiFileText, label: "Notes" },
   { icon: FiFile, label: "PDF" },
   { icon: FiCalendar, label: "Calendar" },
@@ -21,7 +24,7 @@ const apps = [
   { icon: FiTerminal, label: "Terminal" },
 ];
 
-export default function Dock() {
+const Dock: FunctionComponent = () => {
   return (
     <Box
       position="fixed"
@@ -62,15 +65,8 @@ export default function Dock() {
                 transform: "scale(0.95)",
               }}
             >
-              {/* SVG Icon */}
-              <Box
-                as={Icon}
-                boxSize="22px" // 👈 IMPORTANT (perfect visual size)
-                color="white"
-                opacity={0.9}
-              />
+              <Box as={Icon} boxSize="22px" color="white" opacity={0.9} />
 
-              {/* Reflection */}
               <Box
                 position="absolute"
                 bottom="-12px"
@@ -87,4 +83,6 @@ export default function Dock() {
       </HStack>
     </Box>
   );
-}
+};
+
+export default Dock;

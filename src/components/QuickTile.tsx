@@ -1,13 +1,17 @@
-import { Box, VStack, Text } from "@chakra-ui/react";
-import { useState } from "react";
+import { Box, Text, VStack } from "@chakra-ui/react";
+import { FunctionComponent, useState } from "react";
 
-interface Props {
+export interface QuickTileProps {
   icon: React.ReactNode;
   label: string;
   active?: boolean;
 }
 
-export function QuickTile({ icon, label, active = false }: Props) {
+const QuickTile: FunctionComponent<QuickTileProps> = ({
+  active = false,
+  icon,
+  label,
+}) => {
   const [isActive, setIsActive] = useState(active);
 
   return (
@@ -40,4 +44,6 @@ export function QuickTile({ icon, label, active = false }: Props) {
       </VStack>
     </Box>
   );
-}
+};
+
+export default QuickTile;
