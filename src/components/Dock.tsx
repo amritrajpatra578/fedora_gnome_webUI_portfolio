@@ -1,26 +1,41 @@
 import { Box, HStack, Text } from "@chakra-ui/react";
 import { FunctionComponent, useState } from "react";
+import { IconType } from "react-icons";
 import { BsLinkedin } from "react-icons/bs";
 import {
   FiCalendar,
-  FiFile,
   FiFileText,
   FiGithub,
   FiMail,
-  FiMusic,
   FiPhoneCall,
   FiTerminal,
 } from "react-icons/fi";
 
-const apps = [
-  { icon: FiGithub, label: "GitHub" },
-  { icon: BsLinkedin, label: "Linkedin" },
-  { icon: FiFileText, label: "Notes" },
-  { icon: FiFile, label: "PDF" },
-  { icon: FiPhoneCall, label: "Phone Call" },
+export interface AppsProps {
+  icon: IconType;
+  label: string;
+  url?: string;
+}
+
+const apps: AppsProps[] = [
+  {
+    icon: FiGithub,
+    label: "GitHub",
+    url: "https://github.com/amritrajpatra578",
+  },
+  {
+    icon: BsLinkedin,
+    label: "Linkedin",
+    url: "https://www.linkedin.com/in/amritraj-patra-408b68208/",
+  },
+  { icon: FiFileText, label: "Resume" },
+  { icon: FiPhoneCall, label: "Phone Call", url: "tel:+917077474767" },
   { icon: FiCalendar, label: "Calendar" },
-  { icon: FiMusic, label: "Spotify" },
-  { icon: FiMail, label: "Mail" },
+  {
+    icon: FiMail,
+    label: "Mail",
+    url: "mailto:amritrajpatra578@gmail.com",
+  },
   { icon: FiTerminal, label: "Terminal" },
 ];
 
@@ -58,14 +73,21 @@ const Dock: FunctionComponent<DockProps> = ({ onOpenApp }) => {
               onMouseEnter={() => setHovered(i)}
               onMouseLeave={() => setHovered(null)}
               onClick={(e) => {
+                if (app.url) {
+                  window.open(app.url, "_blank", "noopener,noreferrer");
+                  return;
+                }
+
                 const rect = (
                   e.currentTarget as HTMLElement
                 ).getBoundingClientRect();
+
                 onOpenApp(app.label, rect);
               }}
               transition="all 0.2s ease"
               transform={hovered === i ? "translateY(-8px) scale(1.2)" : "none"}
             >
+              {/* Hover Label */}
               {hovered === i && (
                 <Box
                   position="absolute"
@@ -74,7 +96,6 @@ const Dock: FunctionComponent<DockProps> = ({ onOpenApp }) => {
                   py={1}
                   rounded="md"
                   bg="rgba(0,0,0,0.85)"
-                  backdropFilter="blur(10px)"
                   whiteSpace="nowrap"
                   zIndex={2000}
                   pointerEvents="none"
@@ -93,6 +114,18 @@ const Dock: FunctionComponent<DockProps> = ({ onOpenApp }) => {
                     bg="rgba(0,0,0,0.85)"
                   />
                 </Box>
+              )}
+
+              {app.url && (
+                <Box
+                  position="absolute"
+                  top="6px"
+                  right="6px"
+                  w="6px"
+                  h="6px"
+                  bg="green.400"
+                  rounded="full"
+                />
               )}
 
               <Box as={Icon} boxSize="22px" color="white" />

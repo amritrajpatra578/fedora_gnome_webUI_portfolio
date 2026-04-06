@@ -1,9 +1,9 @@
-import { Box, Flex, IconButton, Text } from "@chakra-ui/react";
+import { Box, Flex, IconButton, Text, Link, Skeleton } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { FunctionComponent } from "react";
-import { FiX } from "react-icons/fi";
+import { FiX, FiDownload } from "react-icons/fi";
+import { FunctionComponent, useState } from "react";
 
-const MotionBox = motion(Box);
+const MotionBox = motion.create(Box);
 
 export interface AppWindowProps {
   app: string | null;
@@ -18,9 +18,9 @@ const AppWindow: FunctionComponent<AppWindowProps> = ({
   closing,
   onClose,
 }) => {
-  if (!app || !rect) {
-    return null;
-  }
+  const [loading, setLoading] = useState(true);
+
+  if (!app || !rect) return null;
 
   return (
     <MotionBox
@@ -29,7 +29,7 @@ const AppWindow: FunctionComponent<AppWindowProps> = ({
       left={rect.left}
       width={rect.width}
       height={rect.height}
-      bg="rgb(0, 0, 0)"
+      bg="black"
       borderRadius="16px"
       zIndex={2000}
       animate={
@@ -60,20 +60,64 @@ const AppWindow: FunctionComponent<AppWindowProps> = ({
           {app}
         </Text>
 
-        <IconButton
-          aria-label="close"
-          size="sm"
-          onClick={onClose}
-          variant="ghost"
-          color="white"
-        >
-          <FiX />
-        </IconButton>
+        <Flex gap={2}>
+          {app === "Resume" && (
+            <Link href="/AMRITRAJ_PATRA_Resume.pdf" download target="_blank">
+              <IconButton
+                aria-label="download"
+                size="sm"
+                variant="ghost"
+                color="white"
+              >
+                <FiDownload />
+                <Box
+                  position="absolute"
+                  top="6px"
+                  right="6px"
+                  w="6px"
+                  h="6px"
+                  bg="green.400"
+                  rounded="full"
+                />
+              </IconButton>
+            </Link>
+          )}
+
+          <IconButton
+            aria-label="close"
+            size="sm"
+            onClick={onClose}
+            variant="ghost"
+            color="white"
+          >
+            <FiX />
+          </IconButton>
+        </Flex>
       </Flex>
 
-      <Flex align="center" justify="center" h="full" color="white">
-        {app} App (Empty for now)
-      </Flex>
+      <Box h="calc(100% - 50px)" position="relative">
+        {app === "Resume" ? (
+          <>
+            {loading && <Skeleton position="absolute" inset="0" zIndex={10} />}
+
+            <iframe
+              src="/AMRITRAJ_PATRA_Resume.pdf"
+              width="100%"
+              height="100%"
+              style={{
+                border: "none",
+                opacity: loading ? 0 : 1,
+                transition: "opacity 0.4s ease",
+              }}
+              onLoad={() => setLoading(false)}
+            />
+          </>
+        ) : (
+          <Flex align="center" justify="center" h="full" color="white">
+            {app} App (Coming soon)
+          </Flex>
+        )}
+      </Box>
     </MotionBox>
   );
 };

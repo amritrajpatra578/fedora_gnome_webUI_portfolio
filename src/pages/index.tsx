@@ -9,6 +9,8 @@ const HomePage: FunctionComponent = () => {
   const [closing, setClosing] = useState(false);
 
   const openApp = (name: string, r: DOMRect) => {
+    if (app === name) return;
+
     setRect(r);
     setApp(name);
     setClosing(false);
@@ -16,7 +18,11 @@ const HomePage: FunctionComponent = () => {
 
   const closeApp = () => {
     setClosing(true);
-    setTimeout(() => setApp(null), 300);
+
+    setTimeout(() => {
+      setApp(null);
+      setClosing(false);
+    }, 300);
   };
 
   return (

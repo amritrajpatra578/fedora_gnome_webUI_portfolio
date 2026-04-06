@@ -91,8 +91,13 @@ const ClockMenu: FunctionComponent<ClockMenuProps> = ({ isOpen }) => {
           </HStack>
 
           <SimpleGrid columns={7} gap={1} mb={1}>
-            {["S", "M", "T", "W", "T", "F", "S"].map((d) => (
-              <Text key={d} fontSize="xs" textAlign="center" opacity={0.6}>
+            {["S", "M", "T", "W", "T", "F", "S"].map((d, i) => (
+              <Text
+                key={`${d}-${i}`}
+                fontSize="xs"
+                textAlign="center"
+                opacity={0.6}
+              >
                 {d}
               </Text>
             ))}
