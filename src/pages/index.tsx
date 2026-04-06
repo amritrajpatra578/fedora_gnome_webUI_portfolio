@@ -1,9 +1,23 @@
-import Dock from "@/components/Docks";
-import SystemMenu from "@/components/SystemMenu";
-import { Box, useDisclosure } from "@chakra-ui/react";
+import AppWindow from "@/components/AppWndow";
+import Dock from "@/components/Dock";
+import { Box } from "@chakra-ui/react";
+import { FunctionComponent, useState } from "react";
 
-export default function Home() {
-  const systemMenu = useDisclosure();
+const HomePage: FunctionComponent = () => {
+  const [app, setApp] = useState<string | null>(null);
+  const [rect, setRect] = useState<DOMRect | null>(null);
+  const [closing, setClosing] = useState(false);
+
+  const openApp = (name: string, r: DOMRect) => {
+    setRect(r);
+    setApp(name);
+    setClosing(false);
+  };
+
+  const closeApp = () => {
+    setClosing(true);
+    setTimeout(() => setApp(null), 300);
+  };
 
   return (
     <Box position="relative" minH="100vh" overflow="hidden">
@@ -13,22 +27,21 @@ export default function Home() {
         bgImage="url('/bg.jpg')"
         bgSize="cover"
         backgroundPosition="center"
-        transition="transform 0.4s ease"
       />
 
       <Box
         position="absolute"
         inset="0"
         bg="black"
-        opacity={systemMenu.open ? 0.55 : 0.25}
+        opacity={app ? 0.4 : 0.2}
         transition="opacity 0.3s ease"
       />
 
-      <Box position="relative" zIndex={10}>
-        <SystemMenu isOpen={systemMenu.open} onClose={systemMenu.onClose} />
+      <AppWindow app={app} rect={rect} closing={closing} onClose={closeApp} />
 
-        <Dock />
-      </Box>
+      <Dock onOpenApp={openApp} />
     </Box>
   );
-}
+};
+
+export default HomePage;
