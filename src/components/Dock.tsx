@@ -1,15 +1,6 @@
-import { Box, HStack, Text } from "@chakra-ui/react";
+import { Box, HStack, Image, Text } from "@chakra-ui/react";
 import { FunctionComponent, useState } from "react";
 import { IconType } from "react-icons";
-import { BsLinkedin } from "react-icons/bs";
-import {
-  FiCalendar,
-  FiFileText,
-  FiGithub,
-  FiMail,
-  FiPhoneCall,
-  FiTerminal,
-} from "react-icons/fi";
 
 export interface AppsProps {
   icon: IconType;
@@ -17,26 +8,26 @@ export interface AppsProps {
   url?: string;
 }
 
-const apps: AppsProps[] = [
+const apps = [
   {
-    icon: FiGithub,
+    icon: "/icons/github.png",
     label: "GitHub",
     url: "https://github.com/amritrajpatra578",
   },
   {
-    icon: BsLinkedin,
+    icon: "/icons/linkedin.png",
     label: "Linkedin",
     url: "https://www.linkedin.com/in/amritraj-patra-408b68208/",
   },
-  { icon: FiFileText, label: "Resume" },
-  { icon: FiPhoneCall, label: "Phone Call", url: "tel:+917077474767" },
-  { icon: FiCalendar, label: "Calendar" },
+  { icon: "/icons/resume.png", label: "Resume" },
+  { icon: "/icons/phone.png", label: "Phone Call", url: "tel:+917077474767" },
+  { icon: "/icons/calendar.png", label: "Calendar" },
   {
-    icon: FiMail,
+    icon: "/icons/gmail.png",
     label: "Mail",
     url: "mailto:amritrajpatra578@gmail.com",
   },
-  { icon: FiTerminal, label: "Terminal" },
+  { icon: "/icons/terminal.png", label: "Terminal" },
 ];
 
 export interface DockProps {
@@ -58,8 +49,6 @@ const Dock: FunctionComponent<DockProps> = ({ onOpenApp }) => {
         border="1px solid rgba(255,255,255,0.08)"
       >
         {apps.map((app, i) => {
-          const Icon = app.icon;
-
           return (
             <Box
               key={i}
@@ -115,20 +104,12 @@ const Dock: FunctionComponent<DockProps> = ({ onOpenApp }) => {
                   />
                 </Box>
               )}
-
-              {app.url && (
-                <Box
-                  position="absolute"
-                  top="6px"
-                  right="6px"
-                  w="6px"
-                  h="6px"
-                  bg="green.400"
-                  rounded="full"
-                />
-              )}
-
-              <Box as={Icon} boxSize="22px" color="white" />
+              <Image
+                src={app.icon}
+                alt={app.label}
+                boxSize="48px"
+                objectFit="contain"
+              />
             </Box>
           );
         })}

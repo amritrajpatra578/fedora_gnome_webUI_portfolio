@@ -70,7 +70,10 @@ const SystemMenu: FunctionComponent<SystemMenuProps> = ({
       >
         <Flex justify="space-between" align="center" mb={4}>
           <Box bg="whiteAlpha.200" px={3} py={1} rounded="full">
-            <Box as={FiBatteryCharging} boxSize="18px" /> 100%
+            <Flex>
+              <Box as={FiBatteryCharging} margin={1} boxSize="18px" />
+              <>100%</>
+            </Flex>
           </Box>
 
           <HStack gap={2}>
