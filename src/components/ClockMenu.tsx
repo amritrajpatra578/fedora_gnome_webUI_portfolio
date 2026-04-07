@@ -2,6 +2,7 @@ import {
   Box,
   HStack,
   IconButton,
+  Image,
   SimpleGrid,
   Text,
   VStack,
@@ -21,8 +22,14 @@ export interface ClockMenuProps {
 }
 
 const ClockMenu: FunctionComponent<ClockMenuProps> = ({ isOpen }) => {
-  const [playing, setPlaying] = useState(false);
+  const [playing, setPlaying] = useState(true);
   const [date, setDate] = useState(new Date());
+
+  const track = {
+    title: "Timeless",
+    artist: "The Weeknd, Playboi Carti",
+    cover: "weeknd.jpg",
+  };
 
   const today = new Date();
 
@@ -32,7 +39,7 @@ const ClockMenu: FunctionComponent<ClockMenuProps> = ({ isOpen }) => {
   const firstDay = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-  const days = [];
+  const days: (number | null)[] = [];
 
   for (let i = 0; i < firstDay; i++) {
     days.push(null);
@@ -138,25 +145,52 @@ const ClockMenu: FunctionComponent<ClockMenuProps> = ({ isOpen }) => {
           </Text>
 
           <Box bg="whiteAlpha.100" rounded="xl" p={3}>
-            <Text fontSize="sm">No Music Playing</Text>
+            <HStack align="center" gap={3}>
+              <Image
+                src={track.cover}
+                alt="cover"
+                boxSize="50px"
+                objectFit="cover"
+                rounded="md"
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).src =
+                    "https://via.placeholder.com/50";
+                }}
+              />
 
-            <HStack justify="center" mt={3} gap={3}>
-              <IconButton aria-label="prev" size="sm" variant="ghost">
-                <FiSkipBack />
-              </IconButton>
+              <VStack align="stretch" flex={1} gap={2}>
+                {playing ? (
+                  <VStack align="start" gap={0}>
+                    <Text fontSize="sm" fontWeight="medium" lineClamp={1}>
+                      {track.title}
+                    </Text>
+                    <Text fontSize="xs" opacity={0.6} lineClamp={1}>
+                      {track.artist}
+                    </Text>
+                  </VStack>
+                ) : (
+                  <Text fontSize="sm">No Music Playing</Text>
+                )}
 
-              <IconButton
-                aria-label="play"
-                size="sm"
-                variant="ghost"
-                onClick={() => setPlaying(!playing)}
-              >
-                {playing ? <FiPause /> : <FiPlay />}
-              </IconButton>
+                <HStack gap={2}>
+                  <IconButton aria-label="prev" size="xs" variant="ghost">
+                    <FiSkipBack />
+                  </IconButton>
 
-              <IconButton aria-label="next" size="sm" variant="ghost">
-                <FiSkipForward />
-              </IconButton>
+                  <IconButton
+                    aria-label="play"
+                    size="xs"
+                    variant="ghost"
+                    onClick={() => setPlaying(!playing)}
+                  >
+                    {playing ? <FiPause /> : <FiPlay />}
+                  </IconButton>
+
+                  <IconButton aria-label="next" size="xs" variant="ghost">
+                    <FiSkipForward />
+                  </IconButton>
+                </HStack>
+              </VStack>
             </HStack>
           </Box>
         </Box>
