@@ -14,11 +14,9 @@ https://fedora-gnome-web-ui-portfolio.vercel.app/
 
 ## Screenshots
 
-> Add your actual screenshots here (recommended for maximum impact)
-
-![Main UI](/screenshots/main.png)
-![Clock Menu](/screenshots/clock.png)
-![Quick Settings](/screenshots/settings.png)
+![Main UI](/public/screenshots/main.png)
+![Clock Menu](/public/screenshots/clock.png)
+![Quick Settings](/public/screenshots/quickSettings.png)
 
 ---
 
