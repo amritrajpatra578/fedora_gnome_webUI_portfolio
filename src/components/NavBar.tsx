@@ -13,6 +13,7 @@ const Navbar: FunctionComponent = () => {
   const [time, setTime] = useState("");
   const [clockOpen, setClockOpen] = useState(false);
   const [systemOpen, setSystemOpen] = useState(false);
+  const [showIntro, setShowIntro] = useState(false);
 
   useEffect(() => {
     const update = () => {
@@ -65,14 +66,51 @@ const Navbar: FunctionComponent = () => {
         zIndex={1000}
       >
         <Flex h="100%" align="center" justify="space-between">
-          <Text
-            color="white"
-            fontSize="sm"
-            cursor="pointer"
-            _hover={{ opacity: 0.7 }}
+          <Box
+            position="relative"
+            onMouseEnter={() => setShowIntro(true)}
+            onMouseLeave={() => setShowIntro(false)}
           >
-            Amritraj Patra
-          </Text>
+            <Box
+              as="button"
+              color="white"
+              fontSize="sm"
+              px={2}
+              py={1}
+              rounded="md"
+              _hover={{
+                bg: "rgba(255,255,255,0.08)",
+              }}
+              transition="all 0.2s ease"
+            >
+              Amritraj Patra
+            </Box>
+
+            <Box
+              position="absolute"
+              top="120%"
+              left="0"
+              w="260px"
+              bg="rgba(40,40,40,0.75)"
+              backdropFilter="blur(20px)"
+              border="1px solid rgba(255,255,255,0.08)"
+              p={3}
+              rounded="xl"
+              shadow="xl"
+              color="white"
+              opacity={showIntro ? 1 : 0}
+              transform={showIntro ? "translateY(0)" : "translateY(-10px)"}
+              pointerEvents={showIntro ? "auto" : "none"}
+              transition="all 0.2s ease"
+              zIndex={1200}
+            >
+              <Box fontSize="xs" opacity={0.75} mt={1}>
+                I am a Full-Stack Developer crafting real-time systems and
+                recreating OS-level experiences like this Fedora GNOME-inspired
+                web UI.
+              </Box>
+            </Box>
+          </Box>
 
           <Box position="relative">
             <Text
