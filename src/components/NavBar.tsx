@@ -105,9 +105,8 @@ const Navbar: FunctionComponent = () => {
               zIndex={1200}
             >
               <Box fontSize="xs" opacity={0.75} mt={1}>
-                I am a Full-Stack Developer crafting real-time systems and
-                recreating OS-level experiences like this Fedora GNOME-inspired
-                web UI.
+                I am a Full-Stack Developer building real-time, high-performance
+                web systems with production-grade architecture..
               </Box>
             </Box>
           </Box>
