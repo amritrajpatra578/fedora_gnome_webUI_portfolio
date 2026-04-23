@@ -70,13 +70,27 @@ const Dock: FunctionComponent<DockProps> = ({ onOpenApp }) => {
                 const rect = (
                   e.currentTarget as HTMLElement
                 ).getBoundingClientRect();
-
                 onOpenApp(app.label, rect);
               }}
               transition="all 0.2s ease"
               transform={hovered === i ? "translateY(-8px) scale(1.2)" : "none"}
             >
-              {/* Hover Label */}
+              {app.label === "Resume" && (
+                <Box
+                  position="absolute"
+                  top="0"
+                  right="0"
+                  transform="translate(30%, -30%)"
+                  w="10px"
+                  h="10px"
+                  bg="green.400"
+                  borderRadius="full"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                />
+              )}
+
               {hovered === i && (
                 <Box
                   position="absolute"
